@@ -29,6 +29,9 @@ const app = express();
 //Body Parser
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 app.use(
   cookieSession({
     //30 days
