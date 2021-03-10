@@ -7,7 +7,7 @@ const User = mongoose.model("users"); //get the previously storeed "users" in mo
 
 passport.serializeUser((user, done) => {
   //generate cookie
-  console.log(user.id);
+
   done(null, user.id); //the reaons we're not using profile.id is that it might use facebook or etc //here id means _id
 });
 
