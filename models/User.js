@@ -8,7 +8,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  name: String,
+  credits: {
+    type: Number,
+    default: 0,
+  },
 });
 
 mongoose.model("users", userSchema); //no require statement, register to mongoose so that we can use globally (order importatn!!)
