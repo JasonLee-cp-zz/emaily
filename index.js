@@ -30,7 +30,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.send("hel");
 });
 app.use(
   cookieSession({
