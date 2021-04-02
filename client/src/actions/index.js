@@ -11,8 +11,8 @@ export const fetchUser = () => async (dispatch) => {
 //TODO: if we return a function instead of a normal actions, the redux thunk will see this and will
 //automatically call this function and pass as an "dispatch" argument
 //like function(dispatch)
-//TODO: Purpose: we do not want to return until the promise is resolved -> then dispatch
 
+//TODO: Purpose: we do not want to return until the promise is resolved -> then dispatch
 export const handleToken = (token) => async (dispatch) => {
   const res = await axios.post("/api/stripe", token);
 

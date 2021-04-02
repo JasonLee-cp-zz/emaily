@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Payments from "./Payments";
 class Header extends React.Component {
   renderContent() {
-    console.log(this.props.auth);
+    // console.log(this.props.auth);
     switch (this.props.auth) {
       case null:
         return "";
@@ -48,7 +48,7 @@ class Header extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
+  // console.log(state);
   return { auth: state.auth }; //props passed to Header component
 }
 export default connect(mapStateToProps)(Header);
