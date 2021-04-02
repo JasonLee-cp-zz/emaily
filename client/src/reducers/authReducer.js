@@ -5,7 +5,7 @@ export default function (state = null, action) {
   //null -> still waiting to find out whether the user is logged in or not
   // user info->successful
   //fasel -> not successful
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
     case FETCH_USER:
       return action.payload || false;
