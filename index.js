@@ -5,7 +5,10 @@ const cookieSession = require("cookie-session"); //npm install cookie-session
 const passport = require("passport"); //to tell passport to make use of cookieSession'
 const bodyParser = require("body-parser");
 const keys = require("./config/keys");
+
 require("./models/User");
+require("./models/Survey");
+
 require("./services/passport"); //nothing to export, we're just using passport
 
 mongoose
@@ -42,6 +45,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app); //returns a function!!
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   //1) Express will serve up production assets like our main.js file, or main.css file

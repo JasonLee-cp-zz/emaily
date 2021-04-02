@@ -11,6 +11,10 @@ import reduxThunk from "redux-thunk";
 import reducers from "./reducers";
 import App from "./components/App";
 
+//below is very temporary for testing - console창에서 axios
+import axios from "axios";
+window.axios = axios;
+
 //TODO: Action Creator
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
