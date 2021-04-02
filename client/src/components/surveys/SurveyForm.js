@@ -39,9 +39,7 @@ class SurveyForm extends Component {
     return (
       <div>
         {/* the handleSubmit is provided by reduxForm. Whenever the user submits the form, the arrow function is called automatically*/}
-        <form
-          onSubmit={this.props.handleSubmit((values) => console.log(values))}
-        >
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
 
           <Link to="/surveys" className="teal btn-flat white-text">
