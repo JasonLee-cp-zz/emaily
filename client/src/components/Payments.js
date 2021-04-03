@@ -8,7 +8,7 @@ class Payments extends React.Component {
   //500 cents -> 5 dollars
   render() {
     // debugger;
-    console.log("STRIP KEY IS", process.env.REACT_APP_STRIPE_KEY);
+    // console.log("STRIP KEY IS", process.env.REACT_APP_STRIPE_KEY);
 
     return (
       <StripeCheckout

@@ -6,12 +6,7 @@ import _ from "lodash";
 import validateEmails from "../../utils/validateEmails";
 import SurveyField from "./SurveyField";
 
-const FIELDS = [
-  { label: "Survey Title", name: "title" },
-  { label: "Subject Line", name: "subject" },
-  { label: "Email Body", name: "body" },
-  { label: "Recipient List", name: "emails" },
-];
+import formFields from "./formFields";
 
 {
   /* if we want to pass props to components, we can simply provide props in Field directly
@@ -20,7 +15,7 @@ const FIELDS = [
 class SurveyForm extends Component {
   //TODO: use lodash library
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -42,7 +37,7 @@ class SurveyForm extends Component {
         <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
 
-          <Link to="/surveys" className="teal btn-flat white-text">
+          <Link to="/surveys" className="red btn-flat white-text">
             Cancel
           </Link>
           <button type="submit" className="teal btn-flat right white-text">
@@ -58,9 +53,9 @@ class SurveyForm extends Component {
 function validate(values) {
   const errors = {};
 
-  errors.emails = validateEmails(values.emails || "");
+  errors.recipients = validateEmails(values.recipients || "");
 
-  FIELDS.forEach(({ label, name }) => {
+  formFields.forEach(({ label, name }) => {
     if (!values[name]) {
       errors[name] = `You must provide a ${label}`;
     }
@@ -72,4 +67,5 @@ function validate(values) {
 export default reduxForm({
   validate: validate,
   form: "surveyForm",
+  destroyOnUnmount: false,
 })(SurveyForm);
