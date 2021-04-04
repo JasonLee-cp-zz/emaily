@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
+const { Path } = require("path-parser");
+const { URL } = require("url");
+
 const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
 const Mailer = require("../services/Mailer");
@@ -8,8 +12,62 @@ const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const Survey = mongoose.model("surveys"); //slightly different approach->instead of directly importing from the model js file
 
 module.exports = (app) => {
-  app.get("/api/surveys/thanks", (req, res) => {
-    res.send("Thanks for your response!");
+  app.get("/api/surveys/:surveyId/:choice", (req, res) => {
+    res.send(
+      `You responded ${req.params.choice}! Thank you for your response!`
+    );
+  });
+
+  //TODO: From using clicking
+  app.post("/api/surveys/webhooks", (req, res) => {
+    // console.log(req.body); //event object
+    console.log("hello");
+    // Survey.deleteMany({}, (err, res) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   console.log(res);
+    // });
+    const p = new Path("/api/surveys/:surveyId/:choice"); //parameter -> extracting and store into those two variables from url.
+
+    const uniqueEvents = _.chain(req.body)
+      .map(({ email, url }) => {
+        //p is an object with {surveyid:xxx, choice:xxx}
+        const match = p.test(new URL(url).pathname); //{ surveyId: '6069f1a131f930721027e039', choice: 'yes' }
+        // console.log({ ...match, email });
+        if (match) {
+          return { ...match, email: email };
+        }
+      })
+      .compact() //lodash compact -> removes all undefineds in an array
+      .uniqBy("email", "surveyId") //lodash uniqByUnique events -> remove duplicates of email and surveyId. Choice of course can be duplicated
+      .each(({ surveyId, email, choice }) => {
+        Survey.updateOne(
+          {
+            _id: surveyId,
+            recipients: {
+              $elemMatch: { email: email, responded: false },
+            },
+          },
+          {
+            $inc: { [choice]: 1 }, //ES6 Syntax -> variable property name,
+            $set: {
+              //mongo operator -> look at recipient subdocument collection, and $ specifically points to the found recipient that we know from the above $elemMatch
+              "recipients.$.responded": true,
+            },
+            lastResponded: new Date(),
+          }
+        ).exec();
+      })
+      .value();
+    //without exec, the above query doesn't execute on itw onw
+
+    console.log(uniqueEvents);
+
+    // Survey.drop();
+
+    //TODO: webhook is just a helper for us. WE DON'T have to really send back a response to sendgrid
+    res.send({});
   });
 
   app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
