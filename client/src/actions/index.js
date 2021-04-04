@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER } from "./types";
+import { FETCH_USER, FETCH_SURVEYS } from "./types";
 
 //Redux Thunk -> breaks the rule that the actino creator immediately returns the action
 //Bend the rule but directly access to the dispatch function
@@ -24,6 +24,12 @@ export const submitSurvey = (values, history) => async (dispatch) => {
 
   history.push("/surveys");
 
-  console.log("submitSurvey action res: ", res);
+  // console.log("submitSurvey action res: ", res);
   dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+export const fetchSurveys = () => async (dispatch) => {
+  const res = await axios.get("/api/surveys");
+
+  dispatch({ type: FETCH_SURVEYS, payload: res.data });
 };

@@ -12,6 +12,20 @@ const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const Survey = mongoose.model("surveys"); //slightly different approach->instead of directly importing from the model js file
 
 module.exports = (app) => {
+  app.get("/api/surveys", requireLogin, async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id }).select(
+      //select-> projecting
+      //"-recipients -__v -_user etc" works as well
+      {
+        recipients: false,
+        __v: false,
+        _user: false,
+      }
+    );
+
+    res.send(surveys);
+  });
+
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send(
       `You responded ${req.params.choice}! Thank you for your response!`
