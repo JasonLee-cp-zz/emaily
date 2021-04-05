@@ -36,6 +36,7 @@ class Header extends React.Component {
           <Link
             to={this.props.auth ? "/surveys" : "/"}
             className="left brand-logo"
+            style={{ marginLeft: "1rem" }}
           >
             Emaily
           </Link>
@@ -48,6 +49,7 @@ class Header extends React.Component {
 }
 
 function mapStateToProps(state) {
+  // console.log("state.auth: ", state.auth);
   // console.log(state);
   return { auth: state.auth }; //props passed to Header component
 }
