@@ -1,12 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 
 const Landing = () => {
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Emaily!</h1>
-      Collect Feedback from your users
+      <h1>Welcome to Emaily!</h1>
+      <h5>Please login to use our service</h5>
     </div>
   );
 };
 
-export default Landing;
+function mapStateToProps(state) {
+  console.log("Landing mapStatetoProps State: ", state);
+  return {};
+}
+
+export default connect(mapStateToProps)(Landing);

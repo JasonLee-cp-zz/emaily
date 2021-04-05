@@ -9,7 +9,13 @@ import { withRouter } from "react-router-dom";
 
 //reduxForm detects when a component(SurveyForm) is unmounted, it discards
 //so we need to find a way to keep the data even if we hit "Cancel" button
-const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
+const SurveyFormReview = ({
+  onCancel,
+  formValues,
+  submitSurvey,
+  history,
+  remainingCredits,
+}) => {
   const reviewFields = _.map(formFields, ({ label, name }) => {
     return (
       <div key={name}>
@@ -29,7 +35,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
 
       <button
         className="green btn-flat right white-text"
-        onClick={() => submitSurvey(formValues, history)} //history enables us to navigate around components(routes)
+        onClick={() => submitSurvey(formValues, history, remainingCredits)} //history enables us to navigate around components(routes)
       >
         Confirm
         <i className="material-icons right">email</i>
@@ -39,9 +45,10 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
+  // console.log("surveyFromReview mapStatetoProps state:", state);
   return {
     formValues: state.form.surveyForm.values, //console창 보셈 state
+    remainingCredits: state.auth.credits,
   };
 }
 export default connect(mapStateToProps, actions)(withRouter(SurveyFormReview));
