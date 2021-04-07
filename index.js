@@ -13,7 +13,7 @@ require("./services/passport"); //nothing to export, we're just using passport
 
 mongoose
   .connect(keys.mongoURL, {
-    //이건 그냥외우고 배끼삼 ㅇㅇ
+    //Just Copy&Paste this part
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
