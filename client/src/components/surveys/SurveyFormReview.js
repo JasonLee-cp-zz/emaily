@@ -18,7 +18,14 @@ const SurveyFormReview = ({
 }) => {
   const reviewFields = _.map(formFields, ({ label, name }) => {
     return (
-      <div key={name}>
+      <div
+        key={name}
+        style={{
+          border: "1px solid lightgrey",
+          padding: "1rem",
+          margin: "1rem",
+        }}
+      >
         <label>{label}</label>
         <div>{formValues[name]}</div>
       </div>
@@ -27,7 +34,14 @@ const SurveyFormReview = ({
 
   return (
     <div>
-      <h5>Please confirm your request</h5>
+      <h5
+        style={{
+          textAlign: "center",
+          fontFamily: "Helvetica",
+        }}
+      >
+        Please confirm your request
+      </h5>
       {reviewFields}
       <button className="red btn-flat white-text" onClick={onCancel}>
         Cancel

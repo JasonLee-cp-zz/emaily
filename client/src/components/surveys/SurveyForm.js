@@ -17,14 +17,22 @@ class SurveyForm extends Component {
   renderFields() {
     return _.map(formFields, ({ label, name }) => {
       return (
-        <Field
-          key={name}
-          component={SurveyField}
-          type="text"
-          label={label}
-          name={name}
-          holderValue={label}
-        />
+        <div
+          style={{
+            border: "2px solid lightgrey",
+            padding: "1rem",
+            margin: "1rem",
+          }}
+        >
+          <Field
+            key={name}
+            component={SurveyField}
+            type="text"
+            label={label}
+            name={name}
+            holderValue={label}
+          />
+        </div>
         /* above, component can receive stateless component too! (functional react component not class!) */
       );
     });

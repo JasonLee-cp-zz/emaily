@@ -15,7 +15,7 @@ export default ({ holderValue, input, label, meta: { error, touched } }) => {
 
   return (
     <div>
-      <label>{label}</label>
+      <label style={{ fontSize: "1rem" }}>{label}</label>
       {/* this ...input is equal to onBlur={input.onBlur} onChange={input.onChange} etc... */}
       <input
         {...input}
