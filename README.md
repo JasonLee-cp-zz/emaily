@@ -4,7 +4,7 @@
 ## Overview
 * #### Send out surveys to your custemeres and collect feedback effectively to improve your service!
 * #### Full-stack application primarily developed with MERN stack.
-* #### This application was developed as a learning experience from a Udemy course (Stepehn Grider) Link at the bottom
+* #### This application was developed as a learning experience from a Udemy course (Stepehn Grider)
 * #### Some features including delete survey are added to the original structure
 
 ## Workflow
@@ -46,4 +46,5 @@
   * Heroku
 * **Webhook**
   * ngrok - connect to localhost
+
   
